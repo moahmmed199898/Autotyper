@@ -4,8 +4,9 @@ addEventListener("load", () => {
     function typeing(tag, speed) {
         //geting the information
         var words = tag.innerHTML;
-        var typing_speed = tag.dataset.typespeed;
-        var cursor_speed = tag.dataset.cursorspeed;
+        var typing_speed = tag.dataset.typespeed === undefined? 0.2 : tag.dataset.typespeed;
+        var cursor_speed = tag.dataset.cursorspeed === undefined? 0.2 : tag.dataset.cursorspeed;
+        console.log(typing_speed)
         //clear the tag
         tag.innerHTML = "";
         //creating span for the typing
