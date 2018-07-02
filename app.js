@@ -1,7 +1,7 @@
 "use strict";
 addEventListener("load", () => {
     var tags = document.querySelector("typer");
-    function typeing(tag, speed) {
+    function typeing(tag) {
         //geting the information
         var words = tag.innerHTML;
         var typing_speed = tag.dataset.typespeed === undefined ? 0.2 : tag.dataset.typespeed;
