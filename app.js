@@ -29,6 +29,9 @@ addEventListener("load", () => {
             var cursor_span = document.createElement("span");
             tag.appendChild(cursor_span);
             //cursor function 
+            if(words.length % 2 !==0) {
+                cursor_span.innerHTML = "|";
+            }
             var cursor = setInterval(() => {
                 if (cursor_span.innerHTML === "") {
                     cursor_span.innerHTML = "|";
