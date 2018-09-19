@@ -2,11 +2,10 @@
     "use strict";
 
     class Typer {
-        constructor(words, id, delaytime) {
-            this.words = words.split("");
-            this.id = id;
-            this.delaytime = delaytime || null
-            this._element = document.getElementById(this.id);
+        constructor(tag) {
+            this.tag = tag;
+            this.words = this.tag.innerHTML.split("");
+            this.delaystart = this.tag.dataset.delaystart || null
             this._i = 0;
             this._output = [];
             this.init();
@@ -14,18 +13,18 @@
         //clear and decide whether time is required
         init() {
             this.render();
-            if(typeof this.delaytime === "number"){
+            if(this.delaystart > 0){
                 this.timer();
             } else {
                 this.process();
             }
         }
-        //delayes the typing for this.delaytime
+        //delayes the typing for this.delaystart
         timer() {
             this.render()
             setTimeout(() => {
                 this.process();
-            }, this.delaytime)
+            }, this.delaystart*1000)
         }
 
         //core function
@@ -45,10 +44,16 @@
         }
         //simply output whatever in this._output
         render() {
-            this._element.innerHTML = this._output.join("");
+            this.tag.innerHTML = this._output.join("");
         }
     }
 
-    new Typer("Hello I am a test", "typer")
-    new Typer("Hello I am a test2", "typer2", 2000)
+  //This code is used to automate the code so as soon as the page loads it will loop throw all the elements that have the tag "typer" 
+  //and run new Typer on it. Each tag can be customized using the data- attributes
+  window.addEventListener("load",()=>{
+        let tags = document.getElementsByTagName("typer");
+        for(let i = 0; i<tags.length; i++) {
+            new Typer(tags[i])
+        }
+    })
 })()
