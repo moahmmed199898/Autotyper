@@ -18,33 +18,53 @@
             //this _i is used for the for loop in process() the reason it is in the constructor 
             //is because I want to keep the progress when pausing and unpusing the code
             this._i = 0
+            //cursor info
+            this.cursorNeeded = this.tag.hasAttribute("data-cursor") || false;
+            this.cursorSpeed = this.tag.dataset.cursorspeed || 0.3
+            //this is needed in init and render
+            this._wordsTag
             this.init();
         }
         
         init() {
-            //clear and decide whether time is required
-            this.render();
+            //clear and decide whether timer is required
+            this.clear();
+            //create an elememnt for the words 
+            this._wordsTag = document.createElement("span")
+            this._wordsTag.className = "words"
+            this.tag.appendChild(this._wordsTag)
+            //check if cursor needed
+            if(this.cursorNeeded) {
+                this.cursor()
+            }
+            //timer requried
             if(this.delaystart > 0){
                 this.timer();
             } else {
                 this.process();
             }
         }
-        
+        cursor() {
+            //handels the cursor rendering 
+            //create an element
+            let cursor = document.createElement("span")
+            cursor.className = "cursor"
+            this.tag.appendChild(cursor)
+            //render
+            let _interval = setInterval(()=>{
+                if(cursor.innerHTML === "|") {    
+                    cursor.innerHTML = ""
+                } else {
+                    cursor.innerHTML = "|"
+                }
+            },this.cursorSpeed*1000)
+        }
         timer() {
             //delayes the typing for this.delaystart
             this.render()
             setTimeout(() => {
                 this.process();
             }, this.delaystart*1000)
-        }
-
-        pause() {
-            this._paused = true
-        }
-        unpause() {
-            this._paused = false
-            this.process()
         }
 
         process() {
@@ -64,19 +84,34 @@
             }, this.speed*1000);
 
         }
+        clear() {
+            this.tag.innerHTML = ""
+        }
         render() {
             //simply output whatever in this._output
-            this.tag.innerHTML = this._output.join("");
+            this._wordsTag.innerHTML = this._output.join("");
+        }
+        //These methods can be excuted by the devoloper
+        pause() {
+            //pauses the typing
+            this._paused = true
+        }
+        unpause() {
+            //unpauses the typing ( reverce pause())
+            this._paused = false
+            this.process()
         }
     }
 
-  //This code is used to automate the code so as soon as the page loads it will loop throw all the elements that have the tag "typer" 
-  //and run new Typer on it. Each tag can be customized using the data- attributes
-//   window.addEventListener("load",()=>{
-//         let tags = document.getElementsByTagName("typer");
-//         for(let i = 0; i<tags.length; i++) {
-//             let a = new Typer(tags[i])
-//         }
-//     })
 
+  //example 
+    //all typer tags will work when this code is excuted 
+        //   window.addEventListener("load",()=>{
+        //         let tags = document.getElementsByTagName("typer");
+        //         for(let i = 0; i<tags.length; i++) {
+        //             new Typer(tags[i])
+        //         }
+        //     })
+
+//allow the devoloper more functionality
     var a = new Typer(document.getElementsByTagName("typer")[1])
