@@ -1,3 +1,6 @@
+# DEMO
+https://moahmmed199898.github.io/Autotyper/?path=/docs/react-auto-typer--dev
+
 # TSDX React w/ Storybook User Guide
 
 Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
