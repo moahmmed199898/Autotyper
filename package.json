@@ -35,7 +35,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react_auto_typer",
+  "name": "@mohammed199898/react_auto_typer",
   "author": "Mohammed Alkhafaji",
   "module": "dist/react_auto_typer.esm.js",
   "size-limit": [
